@@ -13,7 +13,7 @@ import (
 )
 
 const AppVersion string = "0.1.0"
-const RedditUrl string = "https://www.reddit.com/r/"
+const RedditUrl string = "https://www.reddit.com/r"
 const UserAgent string = "Reddit2Wallpaper/" + AppVersion
 
 var ResolutionRegex *regexp.Regexp = regexp.MustCompile(`.*\[(\d+)[xX](\d+)\]`)
@@ -85,10 +85,12 @@ func main() {
 
 	fmt.Printf("Looking for %dx%d photos on r/%s \n", minWidth, minHeight, subreddit)
 
-	url := RedditUrl + subreddit + "/new.json"
+	sort := ""
 	if topPosts {
-		url = RedditUrl + subreddit + "/top.json"
+		sort = "top"
 	}
+
+	url := fmt.Sprintf("%s/%s/%s.json?limit=100", RedditUrl, subreddit, sort)
 
 	fmt.Println("Fetching " + url)
 	req, _ := http.NewRequest(http.MethodGet, url, nil)
