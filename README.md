@@ -4,7 +4,7 @@ and saves them in a directory of choice.
 It can also filter out photos with less than the specified resolution.
 
 Note: it will probably work with other subreddits (just use the `-subreddit` command line
-argument), but it wont filter by resolution unless the post title ends with `[<width>x<height>]`, like `r/EarthPorn` posts.
+argument), but it won't filter by resolution unless the post title ends with `[<width>x<height>]`, like `r/EarthPorn` posts do.
 
 ## Usage
 ```
@@ -29,3 +29,5 @@ go install github.com/mattiamari/reddit2wallpaper/cmd/reddit2wallpaper
 in your command line.
 
 You can also download a [precompiled binary](https://github.com/mattiamari/reddit2wallpaper/releases).
+
+I tested the Linux and Windows ones but not the one for OSX, so if that doesn't work just let me know :)
