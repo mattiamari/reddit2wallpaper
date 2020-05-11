@@ -140,6 +140,7 @@ func main() {
 			fmt.Println(err.Error())
 			continue
 		}
+		defer destFile.Close()
 
 		req, _ := http.NewRequest(http.MethodGet, post.Data.Url, nil)
 		req.Header.Set("User-Agent", UserAgent)
