@@ -133,7 +133,7 @@ func main() {
 		}
 
 		if _, err := os.Stat(destFilename); err == nil {
-			fmt.Printf("%s already exists\n", post.Data.Url)
+			fmt.Printf("%s already exists\n", filename)
 			continue
 		}
 
@@ -147,7 +147,7 @@ func main() {
 		req, _ := http.NewRequest(http.MethodGet, post.Data.Url, nil)
 		req.Header.Set("User-Agent", UserAgent)
 
-		fmt.Printf("Downloading %s (%dx%d)... ", post.Data.Url, resolution.Width, resolution.Height)
+		fmt.Printf("Downloading \"%s\" (%s  %dx%d)... ", post.Data.Title, filename, resolution.Width, resolution.Height)
 
 		res, err := http.DefaultClient.Do(req)
 		if err != nil {
