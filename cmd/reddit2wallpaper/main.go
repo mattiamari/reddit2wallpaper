@@ -62,7 +62,7 @@ type Resolution struct {
 
 func main() {
 	//log.SetOutput(os.Stdout)
-	fmt.Printf("Reddit2Wallpaper v%s\n", AppVersion)
+	fmt.Printf("Reddit2Wallpaper v%s https://github.com/mattiamari/reddit2wallpaper\n\n", AppVersion)
 
 	var subreddit string
 	var downloadDir string
