@@ -3,7 +3,7 @@ sources = cmd/reddit2wallpaper/main.go
 
 .PHONY: dist
 
-all: dist build_linux build_osx build_win
+all: linux osx win
 
 clean:
 	rm -rf dist
@@ -11,11 +11,11 @@ clean:
 dist:
 	mkdir -p dist
 
-build_linux:
+linux: dist
 	GOOS=linux GOARCH=amd64 go build -o dist/$(bin_name)-linux-amd64 $(sources)
 
-build_osx:
+osx: dist
 	GOOS=darwin GOARCH=amd64 go build -o dist/$(bin_name)-darwin-amd64 $(sources)
 
-build_win:
+win: dist
 	GOOS=windows GOARCH=amd64 go build -o dist/$(bin_name)-windows-amd64.exe $(sources)
