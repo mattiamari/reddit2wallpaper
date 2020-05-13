@@ -4,7 +4,8 @@ and saves them in a directory of choice.
 It can also filter out photos with less than the specified resolution.
 
 Note: it will probably work with other subreddits (just use the `-subreddit` command line
-argument), but it won't filter by resolution unless the post title ends with `[<width>x<height>]`, like `r/EarthPorn` posts do.
+argument), but it won't filter by resolution unless the post title ends with `[<width>x<height>]`,
+like `r/EarthPorn` and `r/wallpapers` posts do.
 
 ## Usage
 ```
