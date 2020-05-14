@@ -27,11 +27,15 @@ Usage of reddit2wallpaper:
 ```
 
 ## How to install
-If you have Go already installed you can run
+If you have Go already installed you can run the following in your command line:
 ```
 go install github.com/mattiamari/reddit2wallpaper/cmd/reddit2wallpaper
 ```
-in your command line.
+
+To update it if it's already installed run:
+```
+go get -u github.com/mattiamari/reddit2wallpaper/cmd/reddit2wallpaper
+```
 
 You can also download a [precompiled binary](https://github.com/mattiamari/reddit2wallpaper/releases).
 
