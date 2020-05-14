@@ -45,7 +45,7 @@ type postWrapper struct {
 	Data Post `json:"data"`
 }
 
-func GetPosts(subreddit string, sort string, limit int) ([]Post, error) {
+func GetPosts(subreddit string, sort string, limit int) (PostList, error) {
 	url := fmt.Sprintf("%s/r/%s/%s.json?limit=%d", redditURL, subreddit, sort, limit)
 	req, _ := http.NewRequest(http.MethodGet, url, nil)
 	req.Header.Set("User-Agent", userAgent)

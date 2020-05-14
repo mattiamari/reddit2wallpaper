@@ -53,11 +53,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	posts = downloader.FilterImages(posts)
-	posts = downloader.FilterResolution(posts, minWidth, minHeight)
+	posts = posts.Filter(downloader.FileExtensionFilter([]string{"jpg", "jpeg", "png"}))
+	posts = posts.Filter(downloader.ResolutionFilter(minWidth, minHeight))
 
 	if ratioW != 0 && ratioH != 0 {
-		posts = downloader.FilterAspectRatio(posts, ratioW, ratioH)
+		posts = posts.Filter(downloader.AspectRatioFilter(ratioW, ratioH))
 	}
 
 	downloader.DownloadAll(posts, downloadDir)

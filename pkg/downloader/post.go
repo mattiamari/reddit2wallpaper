@@ -3,6 +3,7 @@ package downloader
 import (
 	"regexp"
 	"strconv"
+	"strings"
 )
 
 var resolutionRegex *regexp.Regexp = regexp.MustCompile(`.*\[(\d+)[xX](\d+)\]`)
@@ -13,6 +14,10 @@ type Post struct {
 	Title string `json:"title"`
 	URL   string `json:"url"`
 }
+
+type PostList []Post
+
+type Filter func(Post) bool
 
 // GetPictureResolution parses the resolution from post title
 // e.g. "An awesome post title [<height>x<width>]"
@@ -34,16 +39,11 @@ func (p Post) GetPictureResolution() (width int, height int) {
 	return width, height
 }
 
-// IsImage returns true if post url is an image
-func (p Post) IsImage() bool {
-	return imageExtensionRegex.MatchString(p.URL)
-}
-
-func FilterResolution(posts []Post, minWidth int, minHeight int) []Post {
+func (posts PostList) Filter(filter Filter) PostList {
 	res := []Post{}
 
 	for _, p := range posts {
-		if w, h := p.GetPictureResolution(); w >= minWidth && h >= minHeight {
+		if filter(p) {
 			res = append(res, p)
 		}
 	}
@@ -51,26 +51,28 @@ func FilterResolution(posts []Post, minWidth int, minHeight int) []Post {
 	return res
 }
 
-func FilterAspectRatio(posts []Post, a int, b int) []Post {
-	res := []Post{}
-
-	for _, p := range posts {
-		if w, h := p.GetPictureResolution(); w/h >= a/b {
-			res = append(res, p)
-		}
+func ResolutionFilter(minWidth int, minHeight int) Filter {
+	return func(p Post) bool {
+		w, h := p.GetPictureResolution()
+		return w >= minWidth && h >= minHeight
 	}
-
-	return res
 }
 
-func FilterImages(posts []Post) []Post {
-	res := []Post{}
-
-	for _, p := range posts {
-		if p.IsImage() {
-			res = append(res, p)
-		}
+func AspectRatioFilter(a int, b int) Filter {
+	return func(p Post) bool {
+		w, h := p.GetPictureResolution()
+		return w/h >= a/b
 	}
+}
 
-	return res
+func FileExtensionFilter(extensions []string) Filter {
+	return func(p Post) bool {
+		for _, ext := range extensions {
+			if strings.HasSuffix(p.URL, "."+ext) {
+				return true
+			}
+		}
+
+		return false
+	}
 }
