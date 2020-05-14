@@ -1,7 +1,5 @@
 bin_name = reddit2wallpaper
-version = 0.2.0
 sources = cmd/reddit2wallpaper/main.go
-ldflags = "-X main.appVersion=$(version)"
 
 .PHONY: dist
 
@@ -14,10 +12,10 @@ dist:
 	mkdir -p dist
 
 linux: dist
-	GOOS=linux GOARCH=amd64 go build -ldflags=$(ldflags) -o dist/$(bin_name)-linux-amd64 $(sources)
+	GOOS=linux GOARCH=amd64 go build -o dist/$(bin_name)-linux-amd64 $(sources)
 
 osx: dist
-	GOOS=darwin GOARCH=amd64 go build -ldflags=$(ldflags) -o dist/$(bin_name)-darwin-amd64 $(sources)
+	GOOS=darwin GOARCH=amd64 go build -o dist/$(bin_name)-darwin-amd64 $(sources)
 
 win: dist
-	GOOS=windows GOARCH=amd64 go build -ldflags=$(ldflags) -o dist/$(bin_name)-windows-amd64.exe $(sources)
+	GOOS=windows GOARCH=amd64 go build -o dist/$(bin_name)-windows-amd64.exe $(sources)

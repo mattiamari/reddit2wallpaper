@@ -9,7 +9,7 @@ import (
 	"github.com/mattiamari/reddit2wallpaper/pkg/downloader"
 )
 
-var appVersion string
+const appVersion = "0.2.1"
 
 func main() {
 	downloader.AppVersion = appVersion
