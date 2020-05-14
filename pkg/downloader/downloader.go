@@ -68,6 +68,10 @@ func GetPosts(subreddit string, sort string, limit int) (PostList, error) {
 		posts = append(posts, post.Data)
 	}
 
+	for i := range posts {
+		posts[i].CacheResolution()
+	}
+
 	return posts, nil
 }
 
