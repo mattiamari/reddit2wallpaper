@@ -13,9 +13,13 @@ Usage of reddit2wallpaper:
   -download_dir string
         Directory in which to save wallpapers
   -minheight int
-        Minimum height for the photo to download (default -1)
+        Minimum height for the photo to download
   -minwidth int
-        Minimum width for the photo to download (default -1)
+        Minimum width for the photo to download
+  -ratio_height int
+        Aspect ratio height
+  -ratio_width int
+        Aspect ratio width
   -subreddit string
         Name of the subreddit to use (default "EarthPorn")
   -top_posts
