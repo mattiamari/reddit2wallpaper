@@ -30,6 +30,7 @@ func (p *Post) CacheResolution() {
 	if len(res) < 3 {
 		p.Width = 0
 		p.Height = 0
+		return
 	}
 
 	width, errH := strconv.Atoi(res[1])
@@ -38,6 +39,7 @@ func (p *Post) CacheResolution() {
 	if errH != nil || errW != nil {
 		p.Width = 0
 		p.Height = 0
+		return
 	}
 
 	p.Width = width
