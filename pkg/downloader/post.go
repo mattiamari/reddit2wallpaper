@@ -51,6 +51,18 @@ func FilterResolution(posts []Post, minWidth int, minHeight int) []Post {
 	return res
 }
 
+func FilterAspectRatio(posts []Post, a int, b int) []Post {
+	res := []Post{}
+
+	for _, p := range posts {
+		if w, h := p.GetPictureResolution(); w/h >= a/b {
+			res = append(res, p)
+		}
+	}
+
+	return res
+}
+
 func FilterImages(posts []Post) []Post {
 	res := []Post{}
 

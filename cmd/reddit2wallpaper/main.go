@@ -19,12 +19,16 @@ func main() {
 	var downloadDir string
 	var minHeight int
 	var minWidth int
+	var ratioW int
+	var ratioH int
 	var topPosts bool
 
 	flag.StringVar(&subreddit, "subreddit", "EarthPorn", "Name of the subreddit to use")
 	flag.StringVar(&downloadDir, "download_dir", "", "Directory in which to save wallpapers")
-	flag.IntVar(&minWidth, "minwidth", -1, "Minimum width for the photo to download")
-	flag.IntVar(&minHeight, "minheight", -1, "Minimum height for the photo to download")
+	flag.IntVar(&minWidth, "minwidth", 0, "Minimum width for the photo to download")
+	flag.IntVar(&minHeight, "minheight", 0, "Minimum height for the photo to download")
+	flag.IntVar(&ratioW, "ratio_width", 0, "Aspect ratio width")
+	flag.IntVar(&ratioH, "ratio_height", 0, "Aspect ratio height")
 	flag.BoolVar(&topPosts, "top_posts", false, "Fetch 'top' posts instead of 'new' posts")
 
 	flag.Parse()
@@ -33,7 +37,11 @@ func main() {
 		log.Fatalf("Download directory '%s' does not exist\n", downloadDir)
 	}
 
-	fmt.Printf("Looking for %dx%d photos on r/%s \n", minWidth, minHeight, subreddit)
+	if (ratioW != 0 || ratioH != 0) && (ratioW < 0 || ratioH < 0 || ratioW*ratioH == 0) {
+		log.Fatal("Invalid aspect ratio")
+	}
+
+	fmt.Printf("Looking for %dx%d %d:%d photos on r/%s \n", minWidth, minHeight, ratioW, ratioH, subreddit)
 
 	sort := downloader.SortDefault
 	if topPosts {
@@ -47,6 +55,10 @@ func main() {
 
 	posts = downloader.FilterImages(posts)
 	posts = downloader.FilterResolution(posts, minWidth, minHeight)
+
+	if ratioW != 0 && ratioH != 0 {
+		posts = downloader.FilterAspectRatio(posts, ratioW, ratioH)
+	}
 
 	downloader.DownloadAll(posts, downloadDir)
 }
