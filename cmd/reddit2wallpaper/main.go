@@ -9,8 +9,11 @@ import (
 	"github.com/mattiamari/reddit2wallpaper/pkg/downloader"
 )
 
+var appVersion string
+
 func main() {
-	fmt.Printf("Reddit2Wallpaper v%s https://github.com/mattiamari/reddit2wallpaper\n\n", downloader.AppVersion)
+	downloader.AppVersion = appVersion
+	fmt.Printf("Reddit2Wallpaper v%s https://github.com/mattiamari/reddit2wallpaper\n\n", appVersion)
 
 	var subreddit string
 	var downloadDir string

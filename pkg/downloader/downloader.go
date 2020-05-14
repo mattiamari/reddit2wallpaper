@@ -10,11 +10,12 @@ import (
 	"path"
 )
 
-// AppVersion is the version number to be used in user agent string
-const AppVersion string = "0.1.1"
+// AppVersion is the version number to be used in user agent string. Defaults to 1.0.0
+var AppVersion string = "1.0.0"
+
+var userAgent string = "Reddit2Wallpaper/" + AppVersion
 
 const redditURL string = "https://www.reddit.com"
-const userAgent string = "Reddit2Wallpaper/" + AppVersion
 
 const (
 	// SortDefault default post sorting
