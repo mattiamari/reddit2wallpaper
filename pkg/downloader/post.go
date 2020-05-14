@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-var resolutionRegex *regexp.Regexp = regexp.MustCompile(`.*\[(\d+)[xX](\d+)\]`)
+var resolutionRegex *regexp.Regexp = regexp.MustCompile(`(\d+)\s*[×xX]\s*(\d+)`)
 var imageExtensionRegex *regexp.Regexp = regexp.MustCompile(`\.(jpeg|jpg|png)$`)
 
 // Post is a Reddit post
