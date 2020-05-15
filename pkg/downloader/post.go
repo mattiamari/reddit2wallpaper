@@ -66,7 +66,7 @@ func ResolutionFilter(minWidth int, minHeight int) Filter {
 
 func AspectRatioFilter(a int, b int) Filter {
 	return func(p Post) bool {
-		return p.Width/p.Height >= a/b
+		return float64(p.Width)/float64(p.Height) >= float64(a)/float64(b)
 	}
 }
 
