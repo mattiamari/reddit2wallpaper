@@ -15,6 +15,10 @@ const appVersion = "0.2.3"
 
 func main() {
 	usr, err := user.Current()
+	if err != nil {
+		log.Fatal("Couldn't find the current user")
+	}
+
 	downloader.AppVersion = appVersion
 	fmt.Printf("Reddit2Wallpaper v%s https://github.com/mattiamari/reddit2wallpaper\n\n", appVersion)
 
