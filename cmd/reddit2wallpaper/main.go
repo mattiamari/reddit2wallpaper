@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/user"
+	"path/filepath"
 
 	"github.com/mattiamari/reddit2wallpaper/pkg/downloader"
 )
@@ -12,11 +14,12 @@ import (
 const appVersion = "0.2.3"
 
 func main() {
+	usr, err := user.Current()
 	downloader.AppVersion = appVersion
 	fmt.Printf("Reddit2Wallpaper v%s https://github.com/mattiamari/reddit2wallpaper\n\n", appVersion)
 
 	var subreddit string
-	var downloadDir string
+	downloadDir := filepath.Join(usr.HomeDir, "media", "Pictures", "Wallpapers", "reddit2wallpaper")
 	var minHeight int
 	var minWidth int
 	var ratioW int
@@ -24,7 +27,7 @@ func main() {
 	var topPosts bool
 
 	flag.StringVar(&subreddit, "subreddit", "EarthPorn", "Name of the subreddit to use")
-	flag.StringVar(&downloadDir, "download_dir", "", "Directory in which to save wallpapers")
+	flag.StringVar(&downloadDir, "download_dir", downloadDir, "Directory in which to save wallpapers")
 	flag.IntVar(&minWidth, "minwidth", 0, "Minimum width for the photo to download")
 	flag.IntVar(&minHeight, "minheight", 0, "Minimum height for the photo to download")
 	flag.IntVar(&ratioW, "ratio_width", 0, "Aspect ratio width")
@@ -34,7 +37,11 @@ func main() {
 	flag.Parse()
 
 	if _, err := os.Stat(downloadDir); os.IsNotExist(err) {
-		log.Fatalf("Download directory '%s' does not exist\n", downloadDir)
+		fmt.Printf("Download directory '%s' does not exist\nSo I'll just make it lolol\n", downloadDir)
+		err = os.MkdirAll(downloadDir, 0777)
+		if err != nil {
+			log.Fatal("I had some trouble creating a directory to put the photos")
+		}
 	}
 
 	if (ratioW != 0 || ratioH != 0) && (ratioW < 0 || ratioH < 0 || ratioW*ratioH == 0) {
